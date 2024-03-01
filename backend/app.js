@@ -12,6 +12,7 @@ const orderRouter = require("./routes/order");
 const passwordRouter = require("./routes/password");
 
 const { authenticateToken } = require("./authUser");
+const { loginToken } = require("./loginToken");
 
 const { loginUser } = require("./controllers/user-controller");
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //login page
 app.post("/", authenticateToken, loginUser);
+app.get("/", loginToken);
 
 // user routes
 app.use("/User/home", userRouter);

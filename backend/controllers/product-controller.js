@@ -7,11 +7,14 @@ async function createProduct(req, res) {
       "Content-Type": "multipart/form-data",
     };
 
+    const adminId = req.user.userId;
+
     await uploadProductImage(req, res);
 
     const product = await Product.create({
       ...req.body,
       img: req.file ? req.file.filename : null,
+      adminId: adminId,
     });
 
     return res.status(201).set(headers).json({ product });

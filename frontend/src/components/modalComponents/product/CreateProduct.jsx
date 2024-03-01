@@ -23,7 +23,7 @@ import axios from "axios";
 import { createPdtUrl_admin } from "../../../constants";
 import PropTypes from "prop-types";
 
-function CreateProduct() {
+function CreateProduct({ fetchData }) {
   const { validated, setValidated, openCreatePdt, setOpenCreatePdt } =
     useContext(ModalContext);
 
@@ -31,10 +31,9 @@ function CreateProduct() {
     setOpenCreatePdt(false);
   };
 
-  //TODO: make and import a fetchData func in productList component.
-  // CreateProduct.propTypes = {
-  //   fetchData: PropTypes.func,
-  // };
+  CreateProduct.propTypes = {
+    fetchData: PropTypes.func,
+  };
 
   const pdtRef = useRef("null");
 
@@ -58,7 +57,7 @@ function CreateProduct() {
       formData.append("name", values.name);
       formData.append("unitPrice", values.unitPrice);
       formData.append("img", form.img.files[0]); // Access the file via form.img.files[0]
-      formData.append("adminId", values.adminId);
+      formData.append("adminId", adminId);
 
       console.log("Form values:", values);
       console.log("new form values:", formData);
