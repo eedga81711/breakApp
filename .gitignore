@@ -1,0 +1,42 @@
+#backend#
+
+#dependencies
+/backend/node_modules
+
+#env
+/backend/.env
+/frontend/.env
+
+
+#frontend#
+
+#dependencies
+/frontend/node_modules
+/frontend/.pnp
+/frontend/.pnp.js
+/frontend/src/reportWebVitals
+/frontend/src/setupTests
+/frontend/src/App.test
+
+# testing
+/frontend/coverage
+
+
+# production
+/frontend/dist
+
+# misc
+/frontend/.DS_Store
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+#break-app
+
+/node_modules
+/.vscode

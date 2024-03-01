@@ -1,0 +1,33 @@
+{
+  "name": "break-app",
+  "version": "1.0.0",
+  "description": "\"break App for Odyssey Technologies\"",
+  "logging": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm run start:dev",
+    "frontend": "cd frontend && npm run dev",
+    "start:dev": "nodemon --inspect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eedga81711/break-app.git"
+  },
+  "keywords": [
+    "break-app"
+  ],
+  "author": "edgar",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/test/**",
+      "**/docs/**"
+    ],
+    "delay": 1000
+  }
+}

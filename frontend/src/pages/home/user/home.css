@@ -1,0 +1,35 @@
+.home {
+  .menu {
+    padding: 0px 20px;
+    border-right: 4px solid #f7b900;
+
+    .menuSpan {
+      a {
+        text-decoration: none;
+      }
+
+      a::after {
+        position: absolute;
+        content: "";
+        width: 0px;
+        height: 0px;
+        /* background-color: rgba(0, 0, 0, 0.568); */
+        background-color: black;
+        border-radius: 50%;
+        top: 50%;
+        right: 6px;
+        transform: translate(-50%, -50%);
+        transition: all 0.3s ease;
+      }
+    }
+
+    .menuSpan#active a::after {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  .outlet {
+    padding: 5px 10px;
+  }
+}
