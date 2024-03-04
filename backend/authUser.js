@@ -1,7 +1,6 @@
 const { User } = require("./database/models");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const session = require("express-session");
 const bcrypt = require("bcrypt");
 
 async function authenticateToken(req, res, next) {
@@ -21,6 +20,12 @@ async function authenticateToken(req, res, next) {
     }
 
     const userRole = user.userType;
+
+    req.user = {
+      name: user.name,
+      userRole: user.userType,
+      userId: user.userId,
+    };
 
     let jwtSecret;
 
@@ -65,14 +70,13 @@ async function authenticateToken(req, res, next) {
     const jwtToken = jwt.sign(
       {
         name: user.name,
-        password: user.password,
         userRole: user.userType,
         userId: user.userId,
       },
       jwtSecret
     );
 
-    req.session.token = jwtToken;
+    res.cookie("token", jwtToken, { httpOnly: true });
 
     res.json({
       message: "Authentication successful",

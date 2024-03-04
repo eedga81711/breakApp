@@ -94,7 +94,6 @@ async function loginUser(req, res, next) {
     }
 
     return res.status(200).json({ user });
-    next();
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal server error" });
