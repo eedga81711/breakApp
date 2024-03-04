@@ -26,7 +26,7 @@ const Navbar = () => {
 
   const name = "eedga";
 
-  const { data, setData } = useContext(ModalContext);
+  const { data, setData, pdtData, setPdtData } = useContext(ModalContext);
   return (
     <div className="surface-ground px-2 py-2 md:px-4 lg:px-6">
       <div className="grid">
@@ -115,7 +115,9 @@ const Navbar = () => {
               <span className="block text-primary font-medium mb-3">
                 Products
               </span>
-              <div className="text-black font-medium text-xl">40</div>
+              <div className="text-black font-medium text-xl">
+                {pdtData.length}
+              </div>
             </div>
             <div
               className="flex items-center justify-center bg-cyan rounded"

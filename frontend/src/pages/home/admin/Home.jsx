@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 import "./home.css";
 import Sidebar, { SidebarItem } from "../../../components/sidebar";
 import axios from "axios";
-import { getUserUrl } from "../../../constants";
+import { baseUrl, getPdtUrl_admin, getUserUrl } from "../../../constants";
 import {
   BarChart,
   Boxes,
@@ -46,9 +46,11 @@ const Home = () => {
   });
   const [validated, setValidated] = useState(false);
   const [data, setData] = useState([]);
+  const [pdtData, setPdtData] = useState([]);
 
   useEffect(() => {
     fetchData();
+    fetchProductData();
   }, []);
 
   const fetchData = async () => {
@@ -57,6 +59,20 @@ const Home = () => {
 
       // console.log(res.data.users);
       setData(res.data.users);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchProductData = async () => {
+    try {
+      const res = await axios.get(getPdtUrl_admin);
+
+      const productsWithDataAndImages = res.data.products.map((product) => ({
+        ...product,
+        img: product.img ? `${baseUrl}/images/${product.img}` : null, // Assuming the backend serves images at /api route
+      }));
+      setPdtData(productsWithDataAndImages);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -85,6 +101,8 @@ const Home = () => {
             setOpenEditUser,
             data,
             setData,
+            pdtData,
+            setPdtData,
             validated,
             setValidated,
             editUser,

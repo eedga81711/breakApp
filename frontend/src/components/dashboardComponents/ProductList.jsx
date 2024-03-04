@@ -260,7 +260,7 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [data, setData] = React.useState([]);
+  const [pdtData, setPdtData] = React.useState([]);
 
   const formatTimestamp = (updatedAt) => {
     const date = new Date(updatedAt);
@@ -274,10 +274,10 @@ export default function EnhancedTable() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchProductData();
   }, []);
 
-  const fetchData = async () => {
+  const fetchProductData = async () => {
     try {
       const res = await axios.get(getPdtUrl_admin);
 
@@ -285,7 +285,7 @@ export default function EnhancedTable() {
         ...product,
         img: product.img ? `${baseUrl}/images/${product.img}` : null, // Assuming the backend serves images at /api route
       }));
-      setData(productsWithDataAndImages);
+      setPdtData(productsWithDataAndImages);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -299,7 +299,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = data.map((n) => n.id);
+      const newSelected = pdtData.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -342,15 +342,15 @@ export default function EnhancedTable() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - pdtData.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
-      stableSort(data, getComparator(order, orderBy)).slice(
+      stableSort(pdtData, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage, data]
+    [order, orderBy, page, rowsPerPage, pdtData]
   );
 
   //context
@@ -399,7 +399,7 @@ export default function EnhancedTable() {
                   orderBy={orderBy}
                   onSelectAllClick={handleSelectAllClick}
                   onRequestSort={handleRequestSort}
-                  rowCount={data.length}
+                  rowCount={pdtData.length}
                 />
                 <TableBody>
                   {visibleRows.map((row) => {
@@ -489,7 +489,7 @@ export default function EnhancedTable() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
-              count={data.length}
+              count={pdtData.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
@@ -502,12 +502,15 @@ export default function EnhancedTable() {
           />
         </Box>
 
-        <CreateProduct fetchData={fetchData} />
+        <CreateProduct fetchData={fetchProductData} />
         <DeleteProduct
-          fetchData={fetchData}
+          fetchData={fetchProductData}
           selectedPdtData={selectedPdtData}
         />
-        <EditProduct fetchData={fetchData} selectedPdtData={selectedPdtData} />
+        <EditProduct
+          fetchData={fetchProductData}
+          selectedPdtData={selectedPdtData}
+        />
       </div>
       {/* <ToastContainer /> */}
     </div>
