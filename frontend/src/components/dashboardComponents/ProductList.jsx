@@ -502,13 +502,13 @@ export default function EnhancedTable() {
           />
         </Box>
 
-        <CreateProduct fetchData={fetchProductData} />
+        <CreateProduct fetchProductData={fetchProductData} />
         <DeleteProduct
-          fetchData={fetchProductData}
+          fetchProductData={fetchProductData}
           selectedPdtData={selectedPdtData}
         />
         <EditProduct
-          fetchData={fetchProductData}
+          fetchProductData={fetchProductData}
           selectedPdtData={selectedPdtData}
         />
       </div>

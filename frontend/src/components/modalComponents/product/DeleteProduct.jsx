@@ -15,7 +15,7 @@ import axios from "axios";
 import { deletePdtUrl_admin } from "../../../constants";
 import PropTypes from "prop-types";
 
-function DeleteProduct({ selectedPdtData, fetchData }) {
+function DeleteProduct({ selectedPdtData, fetchProductData }) {
   const { openDeletePdt, setOpenDeletePdt, product, setProduct } =
     useContext(ModalContext);
 
@@ -31,7 +31,7 @@ function DeleteProduct({ selectedPdtData, fetchData }) {
 
   DeleteProduct.propTypes = {
     selectedPdtData: PropTypes.object,
-    fetchData: PropTypes.func,
+    fetchProductData: PropTypes.func,
   };
 
   const handleSubmit = async (productId) => {
@@ -64,7 +64,7 @@ function DeleteProduct({ selectedPdtData, fetchData }) {
       }
     }
 
-    fetchData();
+    fetchProductData();
     handleClose();
   };
 

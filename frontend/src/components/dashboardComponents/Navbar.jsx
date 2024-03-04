@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { React, useContext } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 //icons imports
@@ -12,10 +12,12 @@ import { IoFastFood, IoCartOutline } from "react-icons/io5";
 import Notification from "./Notification";
 
 import { menu, close } from "../../assets";
+import PropTypes from "prop-types";
 
 import { ModalContext } from "../../contexts/ModalContext";
+import axios from "axios";
 
-const Navbar = () => {
+const Navbar = ({ fetchProductData, fetchData }) => {
   const date = new Date();
   const formattedDate = date.toLocaleDateString("en-US", {
     weekday: "long",
@@ -24,15 +26,38 @@ const Navbar = () => {
     day: "numeric",
   });
 
+  Navbar.propTypes = {
+    fetchData: PropTypes.func,
+    fetchProductData: PropTypes.func,
+  };
+
   const name = "eedga";
 
   const { data, setData, pdtData, setPdtData } = useContext(ModalContext);
+
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000");
+      console.log(response.data);
+
+      setUserData(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   return (
     <div className="surface-ground px-2 py-2 md:px-4 lg:px-6">
       <div className="grid">
         <div className="flex justify-between col-12">
           <div className="flex flex-col text-black">
-            <h5 className="">Hello, {name}</h5>
+            <h5 className="">Hello, {userData && userData.name}</h5>
             <span>(Admin)</span>
             <p className="font-semibold text-[12px]">{formattedDate}</p>
           </div>

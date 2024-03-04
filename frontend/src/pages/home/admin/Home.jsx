@@ -47,6 +47,7 @@ const Home = () => {
   const [validated, setValidated] = useState(false);
   const [data, setData] = useState([]);
   const [pdtData, setPdtData] = useState([]);
+  const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -103,6 +104,8 @@ const Home = () => {
             setData,
             pdtData,
             setPdtData,
+            userData,
+            setUserData,
             validated,
             setValidated,
             editUser,
