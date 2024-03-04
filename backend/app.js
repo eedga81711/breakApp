@@ -34,7 +34,8 @@ app.use(express.static(path.join(__dirname, "public")));
 //login page
 app.post("/", authenticateToken, loginUser);
 app.get("/", loginToken, (req, res) => {
-  res.json({ message: "Authenticated user", user: req.user });
+  const user = req.user;
+  res.json({ message: "Authenticated user", user: user });
 });
 
 // user routes

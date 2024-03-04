@@ -37,20 +37,20 @@ const Navbar = ({ fetchProductData, fetchData }) => {
 
   const [userData, setUserData] = useState(null);
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000");
-      console.log(response.data);
+      const res = await axios.get("http://localhost:8000");
+      console.log(res.data);
 
-      setUserData(response.data);
+      setUserData(res.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   return (
     <div className="surface-ground px-2 py-2 md:px-4 lg:px-6">

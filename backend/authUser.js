@@ -34,24 +34,22 @@ async function authenticateToken(req, res, next) {
     const JWT_SECRET_SUPER = process.env.JWT_SECRET_SUPER;
 
     if (!JWT_SECRET_USER || !JWT_SECRET_ADMIN || !JWT_SECRET_SUPER) {
-      return res
-        .status(500)
-        .json({ error: "JWT secret keys are not provided" });
+      return res.status(500).json({ error: "Invalid user role" });
     }
 
-    switch (userRole) {
-      case "User":
-        jwtSecret = JWT_SECRET_USER;
-        break;
-      case "Admin":
-        jwtSecret = JWT_SECRET_ADMIN;
-        break;
-      case "SuperAdmin":
-        jwtSecret = JWT_SECRET_SUPER;
-        break;
-      default:
-        return res.status(500).json({ error: "Invalid user role" });
-    }
+    // switch (userRole) {
+    //   case "User":
+    //     jwtSecret = JWT_SECRET_USER;
+    //     break;
+    //   case "Admin":
+    //     jwtSecret = JWT_SECRET_ADMIN;
+    //     break;
+    //   case "SuperAdmin":
+    //     jwtSecret = JWT_SECRET_SUPER;
+    //     break;
+    //   default:
+    //     return res.status(500).json({ error: "Invalid user role" });
+    // }
 
     switch (userRole) {
       case "User":
