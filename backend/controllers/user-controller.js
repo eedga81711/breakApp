@@ -27,25 +27,48 @@ async function fetchAllUsers(req, res) {
 
 // delete a user
 async function deleteUser(req, res, next) {
+  // try {
+  //   const userId = parseInt(req.query.userId);
+
+  //   const deletedRows = await User.destroy({ where: { userId: userId } });
+
+  //   if (deletedRows > 0) {
+  //     return res
+  //       .status(202)
+  //       .send({ message: `User with id ${userId} deleted successfully` });
+  //   } else {
+  //     return res
+  //       .status(404)
+  //       .send({ error: `User with id ${userId} not found` });
+  //   }
+  // } catch (err) {
+  //   console.error(err);
+  //   return res
+  //     .status(500)
+  //     .send({ error: "An error occurred while processing the request" });
+  // }
   try {
-    const userId = parseInt(req.query.userId);
+    const userIds = req.body.userIds; // Assuming user IDs are provided in the request body as an array
+    if (!userIds || !Array.isArray(userIds)) {
+      return res.status(400).json({ error: "Invalid user IDs provided" });
+    }
 
-    const deletedRows = await User.destroy({ where: { userId: userId } });
+    // Delete users from the database
+    const deletedUsers = await User.destroy({ where: { userId: userIds } });
 
-    if (deletedRows > 0) {
-      return res
-        .status(202)
-        .send({ message: `User with id ${userId} deleted successfully` });
+    // Check if any users were deleted
+    if (deletedUsers > 0) {
+      return res.status(202).json({ message: "Users deleted successfully" });
     } else {
       return res
         .status(404)
-        .send({ error: `User with id ${userId} not found` });
+        .json({ error: "No users found with the provided IDs" });
     }
   } catch (err) {
     console.error(err);
     return res
       .status(500)
-      .send({ error: "An error occurred while processing the request" });
+      .json({ error: "An error occurred while processing the request" });
   }
 }
 

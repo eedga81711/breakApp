@@ -38,6 +38,7 @@ import { ModalContext } from "../../contexts/ModalContext";
 import { CreateProduct, DeleteProduct, EditProduct } from "../modalComponents";
 import axios from "axios";
 import { getPdtUrl_admin, baseUrl } from "../../constants";
+import { FiEdit3 } from "react-icons/fi";
 
 function createData(id, img, name, unitPrice, timestamps, actions, adminId) {
   return {
@@ -463,12 +464,12 @@ export default function EnhancedTable() {
                         </TableCell>
                         <TableCell align="center">
                           <Button
-                            style={{ background: "yellow", color: "black" }}
-                            variant="contained"
+                            // style={{ background: "yellow", color: "black" }}
+                            // variant="outlined"
                             size="xs"
                             onClick={handleClickEdit}
                           >
-                            Edit
+                            <FiEdit3 size={20} color="black" />
                           </Button>
                         </TableCell>
                       </TableRow>

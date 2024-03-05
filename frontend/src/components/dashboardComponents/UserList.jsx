@@ -33,6 +33,7 @@ import { ModalContext } from "../../contexts/ModalContext";
 import { CreateUser, DeleteUser, EditUser } from "../modalComponents";
 import axios from "axios";
 import { getUserUrl } from "../../constants";
+import { FaUserEdit } from "react-icons/fa";
 
 function createData(
   id,
@@ -204,9 +205,10 @@ function EnhancedTableToolbar(props) {
   //context
   const { setOpenDeleteUser } = useContext(ModalContext);
 
-  const handleClickOpen = () => {
-    console.log("dialog opened");
-    setOpenDeleteUser(true);
+  const handleClickDelete = ({ selected }) => {
+    if (selected.length > 0) {
+      setOpenDeleteUser(true);
+    }
   };
 
   return (
@@ -245,7 +247,7 @@ function EnhancedTableToolbar(props) {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={handleClickOpen}>
+          <IconButton onClick={handleClickDelete}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -366,7 +368,13 @@ export default function EnhancedTable({ onSelectUser }) {
 
   const [selectedUserData, setSelectedUserData] = useState(null);
   const handleRowClick = (userData) => {
-    setSelectedUserData(userData);
+    setSelectedUserData((prevSelected) => {
+      if (selected.indexOf(userData.userId) === -1) {
+        return [...prevSelected, userData];
+      } else {
+        return prevSelected.filter((user) => user.userId !== userData.userId);
+      }
+    });
   };
 
   const handleClickCreate = () => {
@@ -454,14 +462,14 @@ export default function EnhancedTable({ onSelectUser }) {
                         <TableCell align="center">
                           {formatTimestamp(row.updatedAt)}
                         </TableCell>
-                        <TableCell align="center">
+                        <TableCell align="left">
                           <Button
-                            style={{ background: "yellow", color: "black" }}
-                            variant="contained"
+                            // style={{ background: "yellow", color: "black" }}
+                            // variant="outlined"
                             size="xs"
                             onClick={handleClickEdit}
                           >
-                            Edit
+                            <FaUserEdit size={20} color="black" />
                           </Button>
                         </TableCell>
                       </TableRow>
