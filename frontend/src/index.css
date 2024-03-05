@@ -38,6 +38,7 @@ body {
 
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -155,4 +156,22 @@ body {
   left: 36px;
   transform: translate(-50%, -50%);
   transition: all 0.3s ease;
+}
+
+.enhanced-table ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.enhanced-table ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.enhanced-table ::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.enhanced-table ::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
